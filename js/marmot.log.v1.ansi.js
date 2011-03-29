@@ -1,5 +1,8 @@
 /**
- * @author wangzilong(wangzilong@baidu.com)
+*@author: 
+*cyhello£¨cyhello@gmail.com£©
+*seven (remember2015@gmail.com)
+*rank£¨ranklau@gmail.com£©
  */
 (function(){
 /**
