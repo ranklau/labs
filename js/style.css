@@ -1,0 +1,736 @@
+/*@author wangzilong(wangzilong@baidu.com)*/
+#_marmot_canvas{margin:0 auto;position:absolute;z-index:65533;top:0;left:0;display:none;}
+
+window *{margin:0;padding:0;font-family:Arial,"Î¢ÈíÑÅºÚ";color: #456;text-shadow: 0 1px 0 rgba(255,255,255, 1);text-align:left;outline:0 none;font-size:12px;}
+window{-moz-user-select:-moz-none}
+window select,option{
+text-shadow: 0 0 0 #fff !important;
+}
+
+#_marmot_console{width: 200px;  right: 8px; top: 44px; display: block; visibility: visible;position:fixed;z-index:65535}
+#_marmot_conf, #_marmot_param{width: auto;  left:120px;top: 10px; display: block; visibility: visible;position:fixed;z-index:65535;cursor:move;}
+#_marmot_param{top:50px;}
+#_marmot_close_canvas{
+	margin-left: 500px; 
+	position: fixed; 
+	left: 50%; 
+	width: 32px; 
+	height: 32px; 
+	top: 0px;
+	z-index:65534;
+	background:rgba(250,255,200,0.9) url(image/Basic_set_Png/delete_32.png) no-repeat center center;
+	-moz-box-shadow: 0px 1px 3px rgba(40, 30, 0, 0.2);
+	-webkit-box-shadow: 0px 1px 3px rgba(40, 30, 0, 0.2);
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid rgba(225, 160, 0, 0.7);
+	-moz-border-top-colors: rgba(225, 160, 0, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(225, 160, 0, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(225, 160, 0, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(225, 160, 0, 0.7) rgba(255, 255, 255, 0.8);
+	cursor:pointer;
+	padding:4px;
+}
+#_marmot_close_canvas.ok{
+	background:rgba(255,250,200,0.9) url(image/Basic_set_Png/tick_32.png) no-repeat center center;
+	border: 1px solid rgba(160, 225, 0, 0.7);
+	-moz-border-top-colors: rgba(160, 225, 0, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(160, 225, 0, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(160, 225, 0, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(160, 225, 0, 0.7) rgba(255, 255, 255, 0.8);
+}
+#_marmot_param input{height:16px !important;-moz-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);}
+#_marmot_tog_content_bar,#_marmot_tog_play_bar{
+	float: right; 
+	width:24px;
+	height:20px;
+	margin:4px 4px 0 0;
+	background:-webkit-gradient(linear, 0 0, 0 22, from(rgba(255,255,255,0.6)),color-stop(0.49, rgba(255,255,255,0.6)),color-stop(0.51, rgba(255,255,255,0.0)), to(rgba(0,0,0, 0.2))), url("image/Window/window-close-btn.png") -27px 0px;
+	background:-moz-linear-gradient(center top, rgba(255,255,255,0.5),rgba(255,255,255,0.6) 49%, rgba(255,255,255,0) 51%, rgba(0,0,0, 0.2)), url("image/Window/window-close-btn.png") -27px 0px;
+}
+#_marmot_tog_content_bar.min{
+	background-position: -52px 0;
+}
+#_marmot_tog_play_bar{
+	background-position: -2px 0;
+	display:none;
+}
+#_marmot_play_ctx{
+	display:none;
+}
+#_marmot_tog_content_bar:hover{
+	background: rgba(255,255,255,0.5) url("image/Window/window-close-btn.png") -27px 0px;
+}
+
+window,.datepicker {
+	position: absolute;
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+	color: rgba(0,0,0,0.75);
+	background:rgba(180,210,250,0.7);
+	-moz-border-top-colors: rgba(120, 140, 160, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(120, 140, 160, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(120, 140, 160, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(120, 140, 160, 0.7) rgba(255, 255, 255, 0.8);
+}
+
+window bar.title icon{
+	margin:2px 3px;
+	float:left;
+	height:24px;
+	cursor: default;
+}
+
+window img{
+	-webkit-user-drag: none;
+}
+
+window bar.title t{
+	margin:4px;
+	float:left;
+	left:30px;
+	height:24px;
+	border:0;
+	cursor: move;
+	background:url("image/logo.png") left center no-repeat;
+	display:block;
+	width:120px;
+}
+
+window bar.title .text:hover,window bar.title .text:focus{
+	color:#654;
+	//text-shadow: 0 0 2px rgba(0,0,0,0.8);
+}
+
+window bar.content{
+	float:left;
+	left:0;
+	top:38px;
+	right:0;
+	margin:1px 1px 1px 5px;
+	padding:2px;
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+	color: rgba(0,0,0,0.75);
+	background:rgba(215,230,250,0.8);
+	-moz-border-top-colors: rgba(140, 160, 180, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(140, 160, 180, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(140, 160, 180, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(140, 160, 180, 0.7) rgba(255, 255, 255, 0.8);
+	cursor:default;
+}
+
+window bar.content > div{
+	float:left;
+	//width:100%;
+	//margin-top:3px;
+	padding:0 4px 0 4px;
+	border-left:1px solid rgba(255,255,255,0.8);
+	border-right:1px solid rgba(140, 160, 180, 0.7);
+}
+window bar.content div:first-child{border-left:0}
+window bar.content div:last-child{border-right:0}
+
+window select, window input, window checkbox{
+	display:inline;
+	font-size:12px;
+	//width:90px;
+	height:21px;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	-moz-box-shadow:inset 0px 0px 4px rgba(0,0,0,0.2);
+	border: 1px solid rgba(130,150,185, 0.8);
+	background:rgba(255,255,255,0.4);
+	-moz-border-top-colors: rgba(140, 160, 180, 0.6) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(140, 160, 180, 0.6) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(140, 160, 180, 0.6) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(140, 160, 180, 0.6) rgba(255, 255, 255, 0.8);
+}
+window input{
+	-moz-box-sizing: content-box ;
+}
+
+window select{
+	cursor:pointer;}
+
+window select option{
+	font-size:12px;
+}
+
+window select:hover, window select:focus, window input:hover, window input:focus{
+	border: 1px solid rgba(250,120,20,0.8);
+	background:rgba(255,255,255,1);
+}
+
+*:focus{
+	outline:0;
+}
+
+.highlight{
+	-webkit-transition-property: background-color,  -webkit-box-shadow, border-color,text-shadow,color,left;
+	-webkit-transition-duration: 200ms, 200ms,200ms,200ms,200ms,180ms;
+}
+
+.highlight:hover,.highlight:focus{
+	-webkit-transition-property: background-color,  -webkit-box-shadow, border-color,text-shadow,color,left;
+	-webkit-transition-duration: 700ms, 600ms,600ms,600ms,600ms,180ms;
+}
+
+.no-shadow{
+	-webkit-box-shadow: none;
+}
+
+.no-border{
+	border:0;
+}
+
+.l{float:left}
+.r{float:right}
+
+window button, window btn{
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-box-shadow: 0px 0px 1px rgba(255,255,255,1);
+	-webkit-box-shadow: 0px 1px 1px rgba(255,255,255,1);
+	color: rgba(64,80,96,0.8);
+	background:-webkit-gradient(linear, 0 0, 0 22, from(rgba(255,255,255,0.6)),color-stop(0.49, rgba(255,255,255,0.6)),color-stop(0.51, rgba(255,255,255,0.0)), to(rgba(0,0,0, 0.2))) no-repeat;
+	background:-moz-linear-gradient(center top, rgba(255,255,255,0.5),rgba(255,255,255,0.6) 49%, rgba(255,255,255,0) 51%, rgba(0,0,0, 0.2));
+	cursor:pointer;
+	border: 1px solid rgba(80, 100, 120, 0.7);
+	//margin-top:1px;
+	//width:40px;
+	//height:24px;
+	//line-height:24px;
+	font-size:12px;
+	padding:0px 7px;
+	font-weight:bold;
+	-moz-border-top-colors: rgba(80, 100, 120, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(80, 100, 120, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(80, 100, 120, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(80, 100, 120, 0.7) rgba(255, 255, 255, 0.8);
+}
+
+window button:hover, window btn:hover{
+	background:rgba(255,255,255,0.5);
+	color:#694;
+}
+
+window button:hover{
+	color: #f60;
+	text-shadow:0 0px 1px rgba(255,255,255,1);
+}
+
+window .content ul{
+	display:block;
+	float:left;
+}
+
+window .content ul li{
+	float:left;
+	display:block;
+	width:100%;
+	-moz-border-radius: 14px;
+	-webkit-border-radius: 14px;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-box-shadow:inset 0px 0px 4px rgba(0,0,0,0.4);
+	-webkit-box-shadow:0px 0px -4px rgba(0,0,0,0.4);
+	border: 1px solid rgba(255,255,255, 0.8);
+	margin: 5px 0 0 0;
+	padding:1px 0;
+	background:rgba(40,60,80,0.1);
+}
+
+window .content ul li .l{
+	font-size:12px;
+	line-height:24px;
+	width: 220px;
+	overflow:hidden;
+}
+t u{
+color:#e60;padding-right:2px;font-size:14px;text-decoration:none;margin-right:3px;float:left;margin-top:1px;
+}
+window .content ul li .r{
+	font-size:12px;margin:0 2px 0 2px;}
+
+window checkbox{
+	cursor:pointer;
+	display:inline-block;
+	float:left;
+	margin:2px;
+	width:10px;
+	height:10px;
+	border: 1px solid rgba(130,150,185, 0.8);
+	background:rgba(255,255,255,0.4);
+	overflow:visible;
+}
+
+window checkbox.select tick{
+	display:inline-block;
+	float:left;
+	margin-left:-1px;
+	margin-top:-4px;
+	width:16px;
+	height:16px;
+	background-image:url(image/Basic_set_Png/tick_16.png);
+}
+
+window .content ul li.select,  window .content ul li:hover{
+	background:rgba(200,230,180,0.9);
+}
+
+#_marmot_mask{
+	z-index:65537;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+	background: rgba(255,255,255,0.5);
+	position:fixed;
+}
+
+#_marmot_mask .loading, #_marmot_message{
+	background:rgba(215,230,250,0.8) url(image/Basic_set_Png/clock_32.png) no-repeat 10px center;
+	left: 50%;
+	margin-left: -70px;
+	top:50%;
+	margin-top:-24px;
+	position:absolute;
+	z-index:65538;
+	width:140px;
+	height:32px;
+	font-size:16px;
+	color:#567;
+	line-height:32px;
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+	padding:4px 0px 4px 52px;
+	text-shadow: 0 1px 1px rgba(255,255,255, 1);
+	-moz-border-top-colors: rgba(140,160,180, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(140,160,180, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(140,160,180, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(140,160,180, 0.7) rgba(255, 255, 255, 0.8);
+}
+
+#_marmot_message{
+	background:rgba(250,255,200,0.9) url(image/Basic_set_Png/warning_16.png) no-repeat 6px center;
+	-moz-box-shadow: 0px 1px 3px rgba(40, 30, 0, 0.2);
+	-webkit-box-shadow: 0px 1px 3px rgba(40, 30, 0, 0.2);
+	width:auto;
+	color: #f80;
+	font-size:12px;
+	height:14px;
+	padding:4px 4px 4px 26px;
+	position:fixed;
+	top:8px;
+	right:8px;
+	left:auto;
+	margin:0;
+	line-height:14px;
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	-moz-border-top-colors: rgba(225, 160, 0, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(225, 160, 0, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(225, 160, 0, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(225, 160, 0, 0.7) rgba(255, 255, 255, 0.8);
+}
+window .toolbar {height:25px;border:0 !important;}
+window .toolbar *{float:left;margin:2px 0 2px 2px;}
+window .toolbar input{height:14px !important;}
+window icon{width: 18px;height:18px;border:0;cursor:pointer;border:1px solid rgba(0,0,0,0);background-position:center center;background-repeat:no-repeat;}
+window icon:hover,window .toolbar icon.select{
+	border:1px solid rgba(140,160,180,0.6);
+	-moz-border-top-colors: rgba(140,160,180, 0.6) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(140,160,180, 0.6) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(140,160,180, 0.6) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(140,160,180, 0.6) rgba(255, 255, 255, 0.8);
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	margin-left:1px;
+	margin-top:1px;
+	margin-right:-1px;
+	margin-bottom:1px;
+}
+window icon.select{
+	-moz-border-top-colors: rgba(128,200,0, 0.8) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(128,200,0, 0.8) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(128,200,0, 0.8) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(128,200,0, 0.8) rgba(255, 255, 255, 0.8);
+}
+window icon:hover em, window icon.select em{
+	float:left;
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+	display:block;
+	background:-webkit-gradient(linear, 0 0, 0 22, from(rgba(255,255,255,0.6)),color-stop(0.39, rgba(255,255,255,0.4)),color-stop(0.41, rgba(255,255,255,0.0)), to(rgba(0,0,0, 0.1)));
+	background:-moz-linear-gradient(center top, rgba(255,255,255,0.6),rgba(255,255,255,0.4) 39%, rgba(255,255,255,0) 41%, rgba(0,0,0, 0.1));
+}
+#_marmot_layer_new{background-image:url(image/Basic_set_Png/plus_16.png);}
+#_marmot_layer_up{background-image:url(image/Basic_set_Png/up_16.png);}
+#_marmot_layer_down{background-image:url(image/Basic_set_Png/down_16.png);}
+#_marmot_layer_remove{background-image:url(image/Basic_set_Png/trash_16.png);}
+#_marmot_layer_restore{background-image:url(image/Basic_set_Png/gear_16.png);}
+#_marmot_layer_key{background-image:url(image/Basic_set_Png/key_16.png);}
+#_marmot_layer_move{background-image:url(image/hand.png);}
+#_marmot_layer_clear{background-image:url(image/eraser.png);}
+#_marmot_layer_reset_move{background-image:url(image/removepos.png);}
+#_marmot_layer_mask{background-image:url(image/mask.png);}
+#_marmot_date_picker{background-image:url(image/calendar-select-days-span.png);}
+#_marmot_date_picker:hover{margin:0 !important}
+#_marmot_date_picker_con{position:absolute;}
+
+
+#_marmot_dom_inspect{background-image:url(image/pipette.png);}
+#_marmot_color_picker{background-image:url(image/color-swatch.png);}
+#_marmot_path_trace{background-image:url(image/marker-arrow.png);}
+
+#_marmot_in_degree{background-image:url(image/in.png);}
+#_marmot_out_degree{background-image:url(image/out.png);}
+#_marmot_leave_degree{background-image:url(image/leave.png);}
+num{position:relative !important;z-index:50000 !important;border:1px soild #f00 !important;font-size:14px !important;padding:2px 4px !important;color:#f00 !important;border: 1px solid #f00 !important;}
+
+#_marmot_conf t, #_marmot_param t{line-height:20px;margin-right:4px;}
+
+#_marmot_layers{
+	width:auto;
+	display:block;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	-moz-box-shadow:inset 0px 0px 3px rgba(0,0,0,0.5);
+	border: 1px solid rgba(255, 255, 255, 0.8);
+	background:rgba(255,255,255,0.4);
+	width:186px;
+	padding:0;
+	margin:0;
+	padding-bottom:2px;
+}
+
+#_marmot_layers .item{
+	
+	-moz-box-shadow: 0px 0px 1px rgba(255,255,255,1);
+	-webkit-box-shadow: 0px 1px 1px rgba(255,255,255,1);
+	color: rgba(64,80,96,0.8);
+	cursor:default;
+	float:left;
+	width:95.5%;
+	border:1px solid rgba(140,160,180,0.6);
+	-moz-border-top-colors: rgba(120, 140,160, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(120, 140,160, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(120, 140,160, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(120, 140,160, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	margin:2px 0 0 2px;
+	background:-webkit-gradient(linear, 0 0, 0 22, from(rgba(255,255,255,0.6)),color-stop(0.49, rgba(255,255,255,0.5)),color-stop(0.51, rgba(255,255,255,0)), to(rgba(40,60,80, 0.1)));
+	background:-moz-linear-gradient(center top, rgba(255,255,255,0.6),rgba(255,255,255,0.5) 49%, rgba(255,255,255,0) 51%, rgba(40,60,80, 0.1));
+	-moz-box-shadow: 0 0 2px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 0 2px rgba(0,0,0,0.1);
+}
+
+#_marmot_layers .item t{margin:1px 0 0 3px;font-size:12px;cursor:default;display:block;float:left;}
+
+#_marmot_layers .item.select{
+	background:-webkit-gradient(linear, 0 0, 0 22, from(rgba(255,255,255,0.6)),color-stop(0.49, rgba(255,255,255,0.5)),color-stop(0.51, rgba(255,255,255,0)), to(rgba(40,60,80, 0.1)));
+	background:-moz-linear-gradient(center top, rgba(240,255,230,0.8),rgba(250,255,245,0.7) 49%, rgba(230,255,200,0.5) 51%, rgba(220,240,180,0.9));
+	-moz-border-top-colors: rgba(140, 160,100, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-left-colors: rgba(140, 160,100, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-bottom-colors: rgba(140, 160,100, 0.7) rgba(255, 255, 255, 0.8);
+	-moz-border-right-colors: rgba(140, 160,100, 0.7) rgba(255, 255, 255, 0.8);
+}
+
+#_marmot_layers .item info{
+	background:url(image/Basic_set_Png/label_16.png);
+	float:right;
+	width:16px;
+	height:16px;
+	margin:2px 2px 0 0;
+	cursor:pointer;
+}
+
+#_marmot_layers .item input{
+	border: 0 !important;
+	-moz-box-shadow: 0 0 0 #fff;
+	-webkit-box-shadow: 0 0 0 #fff;
+	background-color: transparent;
+	width:auto;
+	float:left;
+	height:16px;
+	margin:1px 0 0 2px;
+}
+
+#_marmot_layers .item.select t{color:#f80}
+
+#_marmot_layers .item input:hover{
+	background-color: rgba(255,255,255,0.9);
+}
+#_marmot_move_mask{
+	position:absolute;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+	z-index:65534;
+	display:none;
+	cursor:move;
+}
+
+#_marmot_inspect_mask{
+	border:1px solid rgba(255,0,0,0.5);
+	position:absolute;
+	width:0;
+	height:0;
+	z-index:65535;
+	background:rgba(255,255,0,0.5);
+	pointer-events:none;
+}
+
+#_marmot_dashboard{position:absolute;z-index:65537;padding-right:2px;background:rgba(230,240,255,1);width:66px;height:24px;-moz-border-radius:3px;
+
+	background:rgba(230,240,255,1) -webkit-gradient(linear, 0 0, 0 22, from(rgba(255,255,255,0.6)),color-stop(0.39, rgba(255,255,255,0.4)),color-stop(0.41, rgba(255,255,255,0.0)), to(rgba(0,0,0, 0.1)));
+	background:rgba(200,220,255,1) -moz-linear-gradient(center top, rgba(255,255,255,0.8),rgba(255,255,255,0.7) 49%, rgba(255,255,255,0) 51%, rgba(0,0,0, 0));
+}
+#_marmot_dashboard .toolbar{position:absolute;}
+#_marmot_dashboard ._marmot_dashboard_pointer{position:absolute;width:4px;height:4px;padding:0;
+background:rgba(200,220,255,1);-moz-border-radius:0;
+left:12px;top:22px;border-style:none solid solid none;
+	-moz-border-top-colors: rgba(225, 160, 0, 0) rgba(255, 255, 255, 0);
+	-moz-border-left-colors: rgba(225, 160, 0, 0) rgba(255, 255, 255, 0);
+	-moz-transform:rotate(45deg);
+	-moz-box-shadow:2px 2px 2px rgba(0,0,0,0.3);
+}
+
+#_marmot_tool{width: 34px;left:80px;top: 100px; display: block; visibility: visible;position:fixed;z-index:65535;cursor:move;}
+#_marmot_tool .content{margin:4px 1px 1px 1px;}
+#_marmot_tool .toolbar icon:hover, #_marmot_tool .toolbar icon.select{margin:1px;}
+@-moz-document url-prefix(){
+.datepicker, window, #_marmot_message, #_marmot_mask .loading, window button,window btn, window bar.content, window select, window input, window .toolbar icon:hover, window .toolbar icon.select, #_marmot_layers .item, window checkbox{
+ border: 2px solid rgba(255, 255, 255, 0.7) !important;
+}
+}
+
+.datepicker {
+	position: relative;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	width: 196px;
+	height: 147px;
+	position: absolute;
+	cursor: default;
+	top: 0;
+	left: 0;
+	display: none;
+	margin-left:318px;
+	margin-top:3px;
+	background:rgba(180, 210, 250, 0.9);
+}
+.datepicker *{
+	text-align:right !important;}
+.datepickerContainer {
+	background: #121212;
+	position: absolute;
+	top: 4px;
+	left: 10px;
+}
+.datepickerBorderT {
+	position: absolute;
+	left: 10px;
+	top: 0;
+	right: 10px;
+	height: 4px;
+}
+.datepickerBorderB {
+	position: absolute;
+	left: 10px;
+	bottom: 0;
+	right: 10px;
+	height: 4px;
+}
+.datepickerBorderL {
+	position: absolute;
+	left: 0;
+	bottom: 4px;
+	top: 4px;
+	width: 10px;
+}
+.datepickerBorderR {
+	position: absolute;
+	right: 0;
+	bottom: 4px;
+	top: 4px;
+	width: 10px;4
+}
+.datepickerBorderTL {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 10px;
+	height: 4px;
+}
+.datepickerBorderTR {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 10px;
+	height: 4px;
+}
+.datepickerBorderBL {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 10px;
+	height: 4px;
+}
+.datepickerBorderBR {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 10px;
+	height: 4px;
+}
+.datepickerHidden {
+	display: none;
+}
+div.datepicker table {
+	border-collapse:collapse;
+}
+div.datepicker a {
+	color: #eee;
+	text-decoration: none;
+	cursor: default;
+	outline: none;
+}
+div.datepicker table td {
+	text-align: right;
+	padding: 0;
+	margin: 0;
+}
+div.datepicker th {
+	color: #999;
+	font-weight: normal;
+}
+div.datepicker tbody a {
+	display: block;
+}
+.datepickerDays a {
+	width: 20px;
+	line-height: 16px;
+	height: 16px;
+	padding-right: 2px;
+}
+.datepickerYears a,
+.datepickerMonths a{
+	width: 44px;
+	line-height: 36px;
+	height: 36px;
+	text-align: center;
+}
+td.datepickerNotInMonth a {
+	color: #666;
+}
+tbody.datepickerDays td.datepickerSelected{
+	background: rgba(120,160,80,0.3);
+}
+tbody.datepickerDays td.datepickerNotInMonth.datepickerSelected {
+
+}
+tbody.datepickerYears td.datepickerSelected,
+tbody.datepickerMonths td.datepickerSelected{
+	background: #17384d;
+}
+div.datepicker a:hover,
+div.datepicker a:hover {
+	color: #88c5eb;
+}
+div.datepicker td.datepickerNotInMonth a:hover {
+	color: #999;
+}
+.datepickerSpace div {
+	width: 0px;
+	margin:0px 7px 0 14px;
+	border-right: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-left: 1px solid rgba(140, 160, 180, 0.7) !important;
+	 height:112px;
+}
+.datepickerGoNext a,
+.datepickerGoPrev a,
+.datepickerMonth a {
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+}
+.datepickerGoNext a {
+	float: right;
+	width: 20px;
+}
+.datepickerGoPrev a {
+	float: left;
+	width: 20px;
+}
+table.datepickerViewDays tbody.datepickerMonths,
+table.datepickerViewDays tbody.datepickerYears {
+	display: none;
+}
+table.datepickerViewMonths tbody.datepickerDays,
+table.datepickerViewMonths tbody.datepickerYears,
+table.datepickerViewMonths tr.datepickerDoW {
+	display: none;
+}
+table.datepickerViewYears tbody.datepickerDays,
+table.datepickerViewYears tbody.datepickerMonths,
+table.datepickerViewYears tr.datepickerDoW {
+	display: none;
+}
+td.datepickerDisabled a,
+td.datepickerDisabled.datepickerNotInMonth a{
+	color: #333;
+}
+td.datepickerDisabled a:hover {
+	color: #333;
+}
+td.datepickerSpecial a {
+	background: #700;
+}
+td.datepickerSpecial.datepickerSelected a {
+	background: #a00;
+}
+
+#_marmot_date_picker_con {
+	position: absolute;
+	top: 26px;
+	left: 0;
+	height: 0px;
+
+	width: 588px;
+	background: #B9B9B9;
+}
+#_marmot_date_picker_con .datepicker {
+	position: absolute;
+	bottom: 0;
+	top: auto;
+}
+#_marmot_date_picker_con .datepickerContainer,
+#_marmot_date_picker_con .datepickerBorderT,
+#_marmot_date_picker_con .datepickerBorderB,
+#_marmot_date_picker_con .datepickerBorderL,
+#_marmot_date_picker_con .datepickerBorderR,
+#_marmot_date_picker_con .datepickerBorderTL,
+#_marmot_date_picker_con .datepickerBorderTR,
+#_marmot_date_picker_con .datepickerBorderBL,
+#_marmot_date_picker_con .datepickerBorderBR {
+	background: transparent !important;
+}
+#_marmot_date_picker_con .datepicker a:hover{
+	color: #b6f063;
+}
