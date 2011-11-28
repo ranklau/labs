@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+  <head>
+    <title>icalendar by rank</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <meta http-equiv="Pragma" content="no-cache">  
+    <meta http-equiv="Cache-Control" content="no-cache">     
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="ImageToolbar" content="no">
+    <meta http-equiv="Creator.name" content="rank">
+    <style type="text/css" title="default" media="screen">
+    body {background:#333;}
+    h1 {color:#fff; }
+    #main, #calendar-wrap,#aside {-webkit-transition:.1s linear;-moz-transition:.1s linear;-o-transition:.1s linear;}
+	#calendar-wrap { width:320px; }
+	
+	/**表头样式**/
+	#calendar-wrap .calendar-header {background:#BCA26F;cursor:default;}
+	#calendar-wrap .calendar-day { color:#FAEAC6;font-weight:normal;height:28px;text-align:center;font-size:12px;}
+	
+	#calendar-wrap .calendar-header .day-sunday,
+	#calendar-wrap .calendar-header .day-saturday {color:#fff}
+	
+	/**日期样式**/
+	#calendar-wrap table {border-collapse:collapse;}
+	#calendar-wrap td {border-left:1px solid #BCA26F;padding:3px;width:100px;overflow:hidden;height:20px;font-size:12px;color:#8E6412;text-align:center;cursor:default}
+	
+	/**日期里星期天**/
+	#calendar-wrap .day-sunday {border:0}
+	#calendar-wrap .calendar-date {background:#FAEAC6;}
+	
+	/**不是这个月**/
+	#calendar-wrap .calendar-not-the-month {background:#FAEAC6;color:#F5D081;}
+	
+	/**今天**/
+	#calendar-wrap .calendar-today {background:#FFF5DB;}
+	
+	/**悬停效果**/
+	#calendar-wrap .calendar-hover {background:#FFF5DB;}
+	
+	/**超出设定日期**/
+	#calendar-wrap .calendar-invalid {background:#FAEAC6;text-decoration: line-through;}
+
+	/**操作栏**/
+	#calendar-op {color:#fff;font-size:12px}
+	#calendar-op a {text-decoration:none;color:#fff;}
+	
+	
+	/**输出**/
+	#output {color:#fff;font-size:12px;margin-top:5px;}
+
+    </style>
+    <script type="text/javascript" src="../js/framework-mixed.js"></script>
+    <script type="text/javascript" src="../js/calendar.js"></script>
+	<script type="text/javascript">
+  		onload = function() {
+  		
+  			var refById = function(id) {return document.getElementById(id);},
+  				container   = document.getElementById('calendar-wrap'),
+  				btnToday    = refById('calendar-today'),
+  				btnNext     = refById('calendar-next'),
+  				btnPrevious = refById('calendar-previous'),
+  				selectYear  = refById('select-year'),
+  				selectMonth = refById('select-month'),
+  				minDate     = container.getAttribute('data-min-date'),
+  				maxDate     = container.getAttribute('data-max-date'),
+				updateInfo  = function(select, value) {
+					for (var i=0, len=select.options.length; i<len; i++) {
+						if (select.options[i].value==value) {
+							select.options[i].selected = true;
+						}
+					}
+				},
+				parseSelectToDate = function() {
+					return new Date(selectYear.value, 
+									selectMonth.value-1, 
+									calendar.getCurrentDate().getDate());
+				};
+				
+			(function initMonthOptions(select) {
+				var MONTH_CONST = 12;
+				select.options.length = 0;
+				for (var i=1; i<=MONTH_CONST; i++) {
+					var option = new Option(i, i, false, false);
+					select.options.add(option);
+				}
+			})(selectMonth);
+			
+			(function initDate() {
+				minDate = parseDate(minDate);
+				maxDate = parseDate(maxDate);
+				for (i=minDate.getFullYear(), l=maxDate.getFullYear(); i<=l; i++) {
+					var option = new Option(i, i, false, false);
+					selectYear.options.add(option);
+				}
+			})();
+			
+			selectYear.onchange  = function() {calendar.draw(parseSelectToDate());};
+			selectMonth.onchange = function() {calendar.draw(parseSelectToDate());};
+  			btnToday.onclick     = function() {calendar.draw(new Date())};
+  			btnNext.onclick      = function() {calendar.drawNextMonth();};
+  			btnPrevious.onclick  = function() {calendar.drawPreviousMonth();};
+  			
+  			var calendar = new MonthlyCalendar({
+  				'container'   : container, 
+  				'displayRows' : 5, 		/* if autoRows set false, the property is valid */
+  				'autoRows'    : true, 	/* default true */
+  				'displayHeader': true, 	/*default true */
+  				'minDate'     : minDate, 
+  				'displayDays' : ['日','一','二','三','四','五','六'],
+  				'maxDate'     : maxDate,
+  				'oncellin'    : function(args) {},
+  				'oncellout'   : function(args) {},
+  				'ondrawing'   : function(args) {},
+  				'onchange'    : function(args) {
+  					var oDate = calendar.getCurrentDate();
+  					updateInfo(selectYear , oDate.getFullYear());
+  					updateInfo(selectMonth, oDate.getMonth()+1);
+  					refById('calendar-date-info').innerHTML = oDate.format();
+  				},
+  				'onselect': function(args) {
+  					var oDate = parseDate(args.date),
+  						htmls = 'selected date is out of date range. <br>(from ' +calendar.minDate.format()+ ', to ' +calendar.maxDate.format() +')';
+  					
+  					if (!calendar.checkDateOutOfRange(oDate)) {
+  						htmls = 'your selected date is: ' +oDate.format();
+  					}
+  					refById('output').innerHTML = htmls;
+  				}
+  			});
+  			calendar.draw();
+  		}
+	</script>
+    </head>
+  <body>
+  	<h1> icalendar demo </h1>
+	  	<div id="calendar-op">
+	  		<a href="javascript:;" title="previous month" id="calendar-previous">&lt;&lt;</a>
+	  		<button id="calendar-today">today</button>
+	  		<select id="select-year"></select>
+			<select id="select-month"></select>
+	  		<em id="calendar-date-info">loading...</em>
+	  		<a href="javascript:;" title="next month" id="calendar-next">&gt;&gt;</a>
+	  	</div>
+		<div id="calendar-wrap" data-min-date="2008-8-8" data-max-date="2015-1-1">loading...</div>
+		<div id="output">display date when you select a date cell</div>
+  </body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+  <head>
+    <title>icalendar by rank</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <meta http-equiv="Pragma" content="no-cache">  
+    <meta http-equiv="Cache-Control" content="no-cache">     
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="ImageToolbar" content="no">
+    <meta http-equiv="Creator.name" content="rank">
+    <style type="text/css" title="default" media="screen">
+    /** 全站都可以使用的css **/
+    body {background:#333;font:12px/1.5 helvetica,arial,sans-serif;color:#fff;}
+	#doc:after, .cls:after { content: ".";display: block;height: 0;clear: both;visibility: hidden; }
+	#doc, .cls {zoom:1;}
+	
+	/**总体layout**/
+    #doc {width:100%;}
+    #hd h1 {color:#FAEAC6;float:left; }
+    #hd .nav {float:right}
+    #hd .nav a{color:#ccc;text-decoration:none;font-size:14px}
+    #hd .nav a:hover{color:#FFF5DB;text-decoration:underline;}
+    #hd .nav li {list-style:none;display:inline-block;padding:0 5px 0 5px;}
+    #hd .nav li~li {border-left:1px solid #ccc;}
+    #main, #minical, #aside, #main .box {-webkit-transition:.3s linear;-moz-transition:.3s linear;-o-transition:.3s linear;}
+    #main {float:right;width:100%;margin-left:-200px;}
+    #main .box {margin-left:200px;}
+    #aside {float:left;width:180px;text-align:center;}
+    
+    /**一些在这个app里使用的通用样式**/
+    .calendar-pre-month, .calendar-next-month, #minical-date-info {text-decoration:none;color:#FAEAC6;}
+    .btn {border:1px solid #BCA26F;border-radius:3px;padding:5px 10px 5px 10px;cursor:hand;cursor:pointer;background:#BCA26F;color:#8E6412;height:25px;line-height:25px;font-size:14px;text-decoration:none;}
+	
+	/**侧边栏日历样式**/
+	#minical .calendar-header {cursor:default;}
+	#minical .calendar-day { color:#FAEAC6;font-weight:normal;height:28px;text-align:center;}
+	#minical .day-sunday, #minical .day-saturday {color:#fff}
+	#minical .calendar-base-class {border-collapse:collapse;}
+	#minical .calendar-date {background:#FAEAC6;padding:3px;width:100px;height:20px;color:#8E6412;text-align:center;cursor:default}
+	#minical .calendar-not-the-month {background:#FAEAC6;color:#F5D081;}
+	#minical .calendar-today {background:#FFF;}
+	#minical .calendar-invalid {background:#FAEAC6;text-decoration: line-through;}
+	
+	/**主日历样式**/
+	#maincal .calendar-base-class,
+	#maincal .calendar-base-rows6 {border-collapse:collapse;border-radius:3px;width:100%;}
+	
+	#maincal .calendar-base-class .calendar-date,
+	#maincal .calendar-base-rows6 .calendar-date {border:1px solid #BCA26F;width:170px;background:#FAEAC6;font-size:16px;color:#000;text-align:left;padding:5px;cursor:default;vertical-align:top;}
+	
+	#maincal .calendar-base-class .calendar-today,
+	#maincal .calendar-base-rows6 .calendar-today {background:#FFF5DB;}
+	
+	#maincal .calendar-base-class .calendar-not-the-month,
+	#maincal .calendar-base-rows6 .calendar-not-the-month {color:#aaa;}
+	
+	#maincal .calendar-base-class .calendar-date {height:78px;}
+	#maincal .calendar-base-rows6 .calendar-date {height:62px;}
+	#maincal .calendar-day {text-align:left;padding:5px;color:#FAEAC6;}
+	#maincal .day-sunday, #maincal .day-saturday {color:#fff}
+	
+	/**主日历显示文字样式**/
+	#maincal-date-info {font-size:15px;}
+    </style>
+    <script type="text/javascript" src="../js/framework-mixed.js"></script>
+    <script type="text/javascript" src="../js/calendar.js"></script>
+	<script type="text/javascript">
+		//通过id获得HTMLElement元素引用
+		var refById = function(id) {return document.getElementById(id);};
+		
+		//只是singlton,其实是可以作为class的,
+		//这样可以调整任意的calendar view
+		var CalendarView = {
+			mainbaseCls   : 'calendar-base-class',
+			mainAdjustCls : 'calendar-base-rows6',
+			calendar      : null,
+			adjustRows    : 6,
+			initialize    : function(cal) {
+				//6行与5行的高度设置不一样
+				this.calendar = cal;
+				//在beforedraw事件时去为日历设置特定的className
+				CalendarView.calendar.on('beforedraw', function(args) {
+					var cls = CalendarView.mainbaseCls;
+					if (CalendarView.adjustRows==CalendarView.calendar.displayRows) { 
+						cls = CalendarView.mainAdjustCls; 
+					}
+					CalendarView.calendar.baseClass = cls;
+				});
+			}
+		};
+		
+		//获取数据的接口,不耦合在logic里是使得
+		//model里的代码得以复用在其他地方
+		var CalendarModel = {
+			initialize: function() {
+			}
+		};
+			
+		var CalendarLogic = {
+		
+			minical  : null,
+			maincal  : null,
+			drawDate : new Date(),
+			view     : null,
+			model    : null,
+		
+			initialize: function() {
+				this.initCalendarInstance();
+				this.initEvents();
+				this.initView();
+				this.initModel();
+				this.minical.draw(this.drawDate);
+				this.maincal.draw(this.drawDate);
+			},
+			
+			setView: function(view) {
+				CalendarLogic.view = view;
+			},
+			
+			setModel: function(model) {
+				this.model = model;
+			},
+			
+			initView: function() {
+				this.view.initialize(this.maincal);
+			},
+			
+			initModel: function() {
+				this.model.initialize();
+			},
+			
+			initEvents: function() {
+				//为一些button添加事件
+				refById('maincal-next').onclick  = function() { CalendarLogic.maincal.drawNextMonth(); }
+				refById('maincal-pre').onclick   = function() { CalendarLogic.maincal.drawPreviousMonth(); }
+				refById('maincal-today').onclick = function() { CalendarLogic.maincal.draw(new Date()); }
+				refById('minical-next').onclick  = function() { CalendarLogic.minical.drawNextMonth(); }
+				refById('minical-pre').onclick   = function() { CalendarLogic.minical.drawPreviousMonth(); }
+				
+				//小日历日期更改需要同步到信息中
+				CalendarLogic.minical.on('change', function(args) {
+					refById('minical-date-info').innerHTML = args.currentDate.format('yyyy年MM月');
+				});
+	
+				//主日历改了之后小日历也需要跟着主日历日期走
+				CalendarLogic.maincal.on('change', function(args) {
+					CalendarLogic.minical.draw(args.currentDate);
+					refById('maincal-date-info').innerHTML = args.currentDate.format('yyyy年MM月');
+					location.hash=args.currentDate.format();
+				});
+				//点击之后是可以编辑的
+				CalendarLogic.maincal.on('select', function(args) {
+					alert(args.date);
+				});
+			},
+			
+			//从真正意义上的mvc来看
+			//这里的minical与maincal都是关联的关系,即是在外部实例化后再传后
+			//而在logic里进行实例化,则变成了强关系
+			//不过对于一般的应用,也无所谓
+			initCalendarInstance: function() {
+				this.minical = new MonthlyCalendar({
+					'container'   : refById('minical'), 
+					'displayDays' : ['日','一','二','三','四','五','六'],
+					'onselect'    : function(args) { this.draw(parseDate(args.date)); }
+				});
+				this.maincal = new MonthlyCalendar({
+					container:refById('maincal')
+				});
+			}
+		};
+		
+		//做得干净点
+		icalendar = {
+			initialize: function() {
+	  			//这里设置一下使用关系
+	  			var hashDate = location.hash.slice(1);
+	  			CalendarLogic.drawDate = parseDate(hashDate);
+	  			CalendarLogic.setView(CalendarView);
+	  			CalendarLogic.setModel(CalendarModel);
+				CalendarLogic.initialize();
+			}
+		};
+  			
+  		onload = function() {
+			icalendar.initialize();
+  		}
+	</script>
+    </head>
+  <body>
+  	<div id="doc">
+  		<div id="hd" class="cls">
+  			<h1>icalendar</h1>
+  			<div class="nav">
+  				<ul>
+  					<li><a href="http://www.never-online.net/blog" title="my blog">blog</a></li>
+  					<li><a href="http://www.marmotu.com" title="marmot project">marmot</a></li>
+  				</ul>
+  			</div>
+  		</div>
+  	
+  		<div id="bd" class="cls">
+	  		<div id="main" class="cls">
+	  			<div class="box">
+		  			<div class="cls" style="background:#FAEAC6;border-radius:3px;color:#000;padding:6px;">
+		  				<a href="javascript:;" id="maincal-today" title="today" class="calendar-today btn">今天</a>
+			  			<a href="javascript:;" id="maincal-pre" title="previous month" class="calendar-pre-month btn">&lt;</a>
+			  			<a href="javascript:;" id="maincal-next" title="next month" class="calendar-next-month btn">&gt;</a>
+			  			<span id="maincal-date-info">loading...</span>
+		  			</div>
+		  			<div id="maincal">loading...</div>
+	  			</div>
+	  		</div>
+	
+		  	<div id="aside" class="cls">
+			  	<div class="cls">
+			  		<a href="javascript:;" class="btn" style="display:block;margin-bottom:15px;">创建</a>
+			  		<span id="minical-date-info" style="float:left">loading...</span>
+			  		<div class="act" style="float:right;">
+			  			<a href="javascript:;" id="minical-pre" title="previous month" class="calendar-pre-month">&lt;</a>
+			  			&nbsp;&nbsp;
+			  			<a href="javascript:;" id="minical-next" title="next month" class="calendar-next-month">&gt;</a>
+			  		</div>
+			  	</div>
+				<div id="minical">loading...</div>
+			</div>
+		</div>
+
+	</div>
+  </body>
+</html>
