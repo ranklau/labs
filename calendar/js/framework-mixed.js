@@ -38,7 +38,7 @@ var CustEvent = (function() {
 //获取delegate后的target元素
 var eventH = {
 	target: function(e) {
-		return e ? e.target : window.event.srcElement;
+		return window.event ? window.event.srcElement : e.target;
 	}
 };
 
@@ -154,6 +154,11 @@ var dom = {
         };
 
 	}(),
+	getOffsets: function(e) {
+		  var t = e.offsetTop; var l = e.offsetLeft; var w = e.offsetWidth; var h = e.offsetHeight;
+		  while  (e=e.offsetParent) { t += e.offsetTop; l += e.offsetLeft; }; 
+			return { top: t, left: l, width: w, height: h, bottom: t+h, right: l+w }
+	},
 	contains: function(el, target) {
 		return el.contains ? el != target && el.contains(target) : !!(el.compareDocumentPosition(target) & 16);
 	},
@@ -171,7 +176,7 @@ var dom = {
 		if (typeof context.getElementsByClassName == 'function') {
 			return context.getElementsByClassName(cls);
 		}
-		var elements = context.getElementByTagName('*'), result=[];
+		var elements = context.getElementsByTagName('*'), result=[];
 		for (var i=0, l=elements.length; i<l; i++) {
 			if (dom.hasClass(elements[i], cls)) {
 				result.push(elements[i]);
@@ -193,7 +198,10 @@ var dom = {
 		if (newClass!=undefined) dom.addClass(el, newClass);
 	},
 	addClass: function(el, cls) {
-		dom.hasClass(el,cls) ? void 0 : (el.className = '' ? el.className=cls : el.className += ' '+cls);
+		if (!dom.hasClass(el,cls)) {
+			el.className = el.className || '';
+			el.className=='' ? el.className=cls : el.className += ' '+cls;
+		}
 	}
 };
 
@@ -201,9 +209,9 @@ var dom = {
 //object mix
 (typeof Object.mix=='undefined') && (Object.mix = function(dest, src, cover) {
 	cover = (cover === false) ? false : true; //cover parameter default is true
-	for (item in src) {
-		if (!cover && dest.hasOwnProperty(item)) continue;
-		dest[item] = src[item];
+	for (key in src) {
+		if (!cover && (key in dest)) continue;
+		dest[key] = src[key];
 	}
 	return dest;
 });

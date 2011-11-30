@@ -8,26 +8,25 @@
 
 	/* Adapter代码, 如果你的框架中有此代码,请替换即可 */
 
-		eventH.target   = eventH.target,
-		dom.contains    = dom.contains,
-		dom.create      = dom.create,
-		dom.outerHTML   = dom.outerHTML,
-		classH.extend   = classH.extend,
-		eventTargetH.on = eventTargetH.on,
-		ce              = CustEvent,
-		mix             = Object.mix,
-		parseDate       = parseDate,
-		formatDate      = formatDate,
+		eventH.target   = eventH.target;
+		dom.contains    = dom.contains;
+		dom.create      = dom.create;
+		dom.outerHTML   = dom.outerHTML;
+		classH.extend   = classH.extend;
+		eventTargetH.on = eventTargetH.on;
+		ce              = CustEvent;
+		mix             = Object.mix;
+		parseDate       = parseDate;
+		formatDate      = formatDate;
 		log             = log;
 	
 	/* Adpater代码结束 */
 	
-		
 	
 	var Guid   = 0,
 		calPrefix = 'icalendar-',
 		now    = new Date();
-		
+
 	var _selectEvents = 'select', 						//选定日期的事件
 		_drawEvents   = 'beforedraw,drawing,afterdraw',	//建立日期时的事件,可以用于填充数据
 		_baseEvents   = 'cellin,cellout',			//单元格的cellin/mouseout
@@ -40,9 +39,9 @@
 	 */
 	function VitualBaseCalendar(options) {
 		return this._initialize.apply(this, arguments);
-	}
-	
-	mix(VitualBaseCalendar.prototype, {
+	};
+
+	Object.mix(VitualBaseCalendar.prototype, {
 	
 		/**
 		 * @property 装载日历用的容器
@@ -97,7 +96,7 @@
 		_initialize: function(options) {
 			Guid = Guid + 1;
 			this.uid = Guid;
-			mix(this, options||{}, true);
+			Object.mix(this, options||{}, true);
 
 			ce.createEvents(this, _selectEvents);
 			ce.createEvents(this, _drawEvents);
@@ -163,7 +162,7 @@
 
 	});
 	
-	
+
 
 	/**
 	 * @class MonthlyCalendar 继承并实现了接口的月日历
@@ -173,7 +172,7 @@
 		arguments.callee.$super.apply(this, arguments);
 		return this._init.apply(this, arguments);
 	}, VitualBaseCalendar, false);
-	
+
 	mix(MonthlyCalendar.prototype, {
 	
 		/**
@@ -422,7 +421,7 @@
 			var	tr     = table.insertRow(table.rows.length),
 				th;
 			
-			tr.className = this.className.headerClass;
+			tr.className = this.className.header;
 			
 			for (var i=0; i<cols; i++) {
 				var dayIndex = (i + initDayIndex) % cols;
@@ -452,7 +451,7 @@
 		
 			oDate = oDate || this.currentDate;
 			
-			var header = '<table cellpadding="0" cellspacing="1" class="' +this.baseClass+ '" id="' +calPrefix+this.uid+ '"><tbody>',
+			var header = '<table cellpadding="0" cellspacing="0" class="' +this.baseClass+ '" id="' +calPrefix+this.uid+ '"><tbody>',
 				footer = '</tbody></table>',
 				table, tr, td;
 			

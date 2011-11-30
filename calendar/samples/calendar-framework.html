@@ -174,8 +174,8 @@
 		icalendar = {
 			initialize: function() {
 	  			//这里设置一下使用关系
-	  			var hashDate = location.hash.slice(1);
-	  			CalendarLogic.drawDate = parseDate(hashDate);
+	  			var hashDate = parseDate(location.hash.slice(1));
+	  			CalendarLogic.drawDate = isNaN(hashDate) ? new Date() : hashDate;
 	  			CalendarLogic.setView(CalendarView);
 	  			CalendarLogic.setModel(CalendarModel);
 				CalendarLogic.initialize();
