@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <title>rank's html document</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <meta http-equiv="Pragma" content="no-cache">  
+    <meta http-equiv="Cache-Control" content="no-cache">     
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="ImageToolbar" content="no">
+    <meta http-equiv="Creator.name" content="rank">
+    <style type="text/css" title="default" media="screen">
+			
+    </style>
+	<script type="text/javascript">
+	
+void function () {
+//一种简单思路来解决JS浮点运算的问题
+//将所有的操作数都转为无小数的数，最后再用除来运算
+//更好一些的方案可以采用大数的乘除/加减法来运算
+//by rank
+
+	function getDecimalDigits(number) {
+		var t = String(number).split('.');
+		return t[1] ? t[1].length : 0;
+	};
+	
+	
+	function mathFactory(n1, n2, type) {
+	
+		//l(eft)为左操作数, r(ight)为右操作数
+		var l = getDecimalDigits(n1), r = getDecimalDigits(n2),
+			m1 = parseFloat( String(n1).replace('.', '') ),
+			m2 = parseFloat( String(n2).replace('.', '') ),
+			diff = Math.abs(r - l), 
+			max  = Math.max(r, l),
+			result, digits;
+				
+		switch (type) {
+		
+			case '+':
+
+				if (m1 > m2) m2 *= Math.pow(10, diff);
+				else m1 *= Math.pow(10, diff);
+
+				result = (m1 + m2) / Math.pow(10, max);
+				break;
+				
+			case '-':
+				if (m1 > m2) m2 *= Math.pow(10, diff);
+				else m1 *= Math.pow(10, diff);
+
+				result = (m1 - m2) / Math.pow(10, max);
+				break;
+				
+			case '*':
+				result = m1 * m2 / Math.pow(10, l + r);
+				break;
+				
+			case '/':
+  				result = m1 / m2, //把小数位去除后以 无小数 方式来除
+  				digits = getDecimalDigits(result); //除法除的结果里有小数，取出小数位数
+	  			//除完之后还有可能是小数，所以还需要再转成整型
+	  			//e.g：如果result = d1/d2 = 5.6,那么再除以10，浮点数就溢出了
+	  			result = parseFloat( String(result).replace('.','') );
+	  			result = result / Math.pow(10, l + r + digits);
+				break;
+				
+			default:
+				throw new Error(['mathFactory operator type error', type]);	
+		}
+		
+		return result;
+	
+	};
+	
+	//乘法, 别名为m
+	Number.prototype.multiply = Number.prototype.m = function(multiplier) {
+		return mathFactory(this, multiplier, '*');
+	};
+	
+	//除法，别名为d
+	Number.prototype.divide = Number.prototype.d = function(divisor) {
+		return mathFactory(this, divisor, '/');
+	};
+	
+	//加法，别名为p
+	Number.prototype.plus = Number.prototype.p = function(number) {
+		return mathFactory(this, number, '+');
+	};
+	
+	//减法，别名为s
+	Number.prototype.subtract = Number.prototype.s = function(number) {
+		return mathFactory(this, number, '-');
+	};
+		
+	}();
+	
+	var a = .07;
+	console.log(8.2/2+2-10);
+	console.log((8.2).divide(2).plus(2).subtract(10));
+	console.log(a.multiply(8.12));
+	console.log(a.multiply(.8).divide(10));
+
+</script>
+    </head>
+  <body>
+	
+  </body>
+</html>
