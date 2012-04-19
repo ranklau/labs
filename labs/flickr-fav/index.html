@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <title>rank's html document</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <meta http-equiv="Pragma" content="no-cache">  
+    <meta http-equiv="Cache-Control" content="no-cache">     
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="ImageToolbar" content="no">
+    <meta http-equiv="Creator.name" content="rank">
+    <style type="text/css" title="default" media="screen">
+		body {font-family:arial; font-size:12px}
+		a { text-decoration:none; color:#000; outline:none;}
+		.fave-button.fave span.star { background-position: -1053px -51px;}
+		#zoom-star{display:block;position:absolute;z-index:1001;top:-43px;left:-1045px;width:auto;height:auto;cursor:pointer}
+		#zoom-star-container{display:block;position:absolute;*top:0;z-index:1001;width:32px;height:30px;overflow:hidden;cursor:pointer}
+		#button-bar-fave{*position:relative;*zoom:1;*height:12px}#button-bar-fave span.ie-hack{display:none;*display:inline;font-size:1px;text-indent:0;*width:auto}
+		#zoom-star.unfave {top:-3px}
+		.fave-button span.star {
+		position: relative;display: inline-block;width: 16px;height: 16px;background: url(http://l.yimg.com/g/images/flickr-sprite.png.v4) no-repeat -1053px -11px;text-indent: -999em;}
+    </style>
+	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript">
+		onload = function() {
+			$('#button-bar-fave').on('click',function(e) {
+				var containerNode = $('#zoom-star-container'),
+					zoomNode = $('#zoom-star'),
+					starNode = $('.star',controllerNode).one(),
+					controllerNode = $('#button-bar-fave');
+		
+				void function initnodes() {
+					if (!containerNode.length) {
+						zoomNode = $('<img id="zoom-star" src="http://l.yimg.com/g/images/flickr-sprite.png.v4">');
+						containerNode = $('<div id="zoom-star-container"></div>');
+						containerNode.append(zoomNode);
+						$('body').append(containerNode);
+					}
+				}();
+		
+				var ps     = starNode.position(),
+					fave   = controllerNode.hasClass('fave');
+					
+				containerNode.css('left',ps.left-starNode.width()/2);
+				containerNode.css('top', ps.top-starNode.height()/2);
+		
+				if (fave) {
+					zoomNode.addClass('unfave');
+					controllerNode.removeClass('fave');
+				} else {
+					controllerNode.addClass('fave');
+				}
+		
+				zoomNode.animate({
+					'width'      : zoomNode.width()  * 2,
+					'height'     : zoomNode.height() * 2,
+					'opacity'    : 0,
+					'margin-left': -1053 - 8,
+					'margin-top' : (fave ? -11 : -51) - 8
+				}, 500, 'linear', function() {
+					containerNode.remove();
+				});
+		
+			});
+		}
+	</script>
+    </head>
+  <body>
+  <h1>fave star</h1>
+	<div align="center">
+		<a href="#" class="Butt ywa-track fave-button fave" id="button-bar-fave" data-ywa-name="Favorites star" onclick="return false" tabindex="4"><span class="ie-hack">&nbsp;</span><span class="star">★</span></a>
+	</div>
+  </body>
+</html>
