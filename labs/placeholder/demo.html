@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <title>rank's html document</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <meta http-equiv="Pragma" content="no-cache">  
+    <meta http-equiv="Cache-Control" content="no-cache">     
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="ImageToolbar" content="no">
+    <meta http-equiv="Creator.name" content="rank">
+    <style type="text/css" title="default" media="screen">
+    	body {font-size:12px;font-family:arial;}
+
+    	
+    	.field {position:relative;}
+    	.list li {line-height:1.5}
+    	
+    	.placeholding-input {
+    		border-radius:3px;
+    		-webkit-appearance:none;
+    		border:1px solid #ccc;
+    		box-shadow:inset 0 1px 0 #EEE,white 0 1px 0;
+    		height:20px;
+    		outline:none;
+    		padding:4px;
+    		font-size:13px;
+    	}
+		.placeholder {
+			position:absolute;
+			top:1px;
+			right:1px;
+			bottom:1px;
+			left:2px;
+			z-index:1;
+			height:20px;
+			padding:4px;
+			font-size:13px;
+			line-height:20px;
+			color:#999;
+			text-shadow:0 1px 0 rgba(255,255,255,.5);
+			white-space:nowrap;
+			cursor:text;
+			-webkit-transition:opacity .1s,font-size .1s;-moz-transition:opacity .1s,font-size .1s;
+			-o-transition:opacity .1s,font-size .1s;
+			-webkit-user-select:none;
+			-moz-user-select:none;
+			-o-user-select:none;
+			user-select:none;
+		}
+		.field input:focus+.placeholder{
+			-moz-opacity:.6;
+			opacity:.6;
+			-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+			filter:alpha(opacity=60);
+		}
+		.hasome .placeholder{
+			font-size:0!important;
+			z-index:-1;
+			-moz-opacity:0;
+			opacity:0;
+			-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+			filter:alpha(opacity=0);
+		}
+
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript">
+		function oninputHandler(e) {
+			var target = e.target||window.event.srcElement,
+				controller = $(target).parent();
+			if (target.value != '') { controller.addClass('hasome'); } 
+			else { controller.removeClass('hasome'); }
+		}
+	</script>
+    </head>
+  <body>
+  	<h1>兼容版的placeholder</h1>
+  	<ul class="list">
+  		<li>必须有文字提示文本才消失</li>
+  		<li>focus时的颜色也发生一点变化</li>
+  		<li>IE下也要能兼容</li>
+  		<li>用label完全是为了语义</li>
+  		<li>最难的其实是在位置上的纠结，placeholder一直没有完美的解决方案</li>
+  	</ul>
+  	<pre>
+|--------------------------------------
+| class=field relative+boxshadow
+|    ------------------------------
+|    | input absolute+padding
+|    ------------------------------
+|    | label absolute+padding
+|    ------------------------------
+|--------------------------------------
+  	</pre>
+  	<p>另外，应该加入autofocus="autofocus" attribute</p>
+  	<div class="field">
+		<input id="demo" oninput="oninputHandler(event)" onkeyup="oninputHandler(event)" class="placeholding-input" type="text" data-placeholder="请输入用户名和密码">
+		<label for="demo" class="placeholder">请输入用户名和密码</label>
+	</div>
+  </body>
+</html>
