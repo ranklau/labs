@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+  <head>
+    <title>rank's html document</title>
+    <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="apple-touch-icon-precomposed" href="icon/180px.png"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <meta http-equiv="Creator.name" content="rank">
+    <style type="text/css" title="default" media="screen">
+    	body {
+    		font-family:helvetica,arial,sans-serif;
+    		font-size:11px;
+    		position:relative;
+    		-webkit-text-size-adjust:none;
+    		line-height:1;
+    	}
+    	header, footer {text-align:center;}
+    	footer, p, p.digest {
+    		color:#999;
+    	}
+    	footer {
+    		margin-top:30px;
+    	}
+    	h2 {
+			margin:0;
+			padding:0;
+    		margin-top:30px;
+    	}
+    	article li {
+    		line-height:1.5;
+    	}
+		.spinner {
+			background:url(data:image/gif;base64,R0lGODlhFAAUAKIHAPDw8O/v78bGxtXV1ebm5v///7Kysv///yH5BAEAAAcALAAAAAAUABQAAANZeLrc/jCqMOoIUgFhuhdARHikRzxAqRphwxnCaL5CE5iFTOQetgykHUFIGjCAwQKveCztlh7jLzmEGqQTnA7qW9BkHQLNkVqRWg3w6gTZqECZA8XSjdvvjQQAOw==);
+			text-indent:-9999px;
+			width:20px;
+			height:20px;
+			position:absolute;
+			right:43px;
+			top:10px;
+			z-index:999;
+			-webkit-user-select:none;
+			user-select:none;
+		}
+		input[type=search] {
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			margin:none;
+			border:none;
+			width:100%;
+			font-size:18px;
+			outline:none;
+			-webkit-appearance: none;
+			margin-top:7px;
+			padding-left: 8px;
+			padding-right: 8px;
+		}
+		#searchbox:focus {
+			padding-right:30px!important;
+		}
+		.search {
+			padding-right:36px;
+			position:relative;
+		}
+		input[type="search"]::-webkit-search-cancel-button{-webkit-appearance:none}
+		.search .box {
+			background:#fff;border:2px solid #C7D6F7;
+			border-radius:3px;
+			height:38px;
+			border-right:none;
+		}
+		input[type=submit] {
+			background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sEFhMtI6jy3nsAAAJ/SURBVFjD7ZhNSFRRFMd/78041ZhN4vhBhhNiLTTQCPp6Go1li4Rk3ETMDBStojZBBBG4aGNQtBMKcjdCBTmREEKYkR+tAgWNUMl5muVzxrKBbMaZ8bWwJDTD68sY6N3LWVzOvZf/+5/z/udwpfisrpOGw5qesMCaprhMxsSBgW6G0kx+k7E0+yvFRyKR4klHH8+6BwlNTAOwozCHmsoyTh6tICPDYhiY9HlmXoizqUiUq7daGVG13/pLXPk0Xq4nz7nFGLBPAsDm5pJcaAgwrGpkO+xc9Fezv6IESYLXAyGaAs/RwlF2uvJpuu7DZrOuGZiss/rZ1tHHsKpR4HRw78YZqpVSMjNt2O02qvbtornxLMVFuQyrGm0dfegGpqzrsFprfzkAwLlTh8l2bF7mt9s3cN57BID2rkFE7l5qsgi96kQEgAMVxSvu2VPmIsNqQX0f/vdyYbHIrHxOwmKVmU/NY0SKZJ2FMr4aKyp0AtD/dnzFPUOjGrFYAtf2XETuXmpCOVZTtRuA5oddxOLJZf5EMsXd+y8AOFZZZizHRL6i1l1OcVEeIyGNK40PGBqdXPSFJiJcu/mI/sExtuVtpdZdbogx6WMkJZQJ4ekoDbdbeTc2BcCWrE3IksRMdBaAAqeDycgXsjI3Und8L/56ZW0CKwrsp9A+7eyn89Ub1B8lyVWYg/tgKSfc5fgv3VkE6vMoawInfQin/noZD7R2E3jcu7j2ehT8HkVQLtahtfbWK+gStAQXwLUEewAdnwA42UiC/sm8HgXfLyFsCfYKnV/Xfux03SHQIRDsARASXGl8Kmk+EZg9v8mY+XZhhvJ/YexbXE8/xmJxna+xFN8BLSH27mjmBJ8AAAAASUVORK5CYII=");
+			text-indent:-999px;
+			width:40px;height:42px;
+			-webkit-appearance: none;
+			border:none;
+			position:absolute;right:0;top:0;
+			border: 2px solid #999;
+			border-color: #C7D6F7;
+			border-radius: 0;
+			-webkit-border-top-right-radius:5px;
+			-webkit-border-bottom-right-radius:5px;
+			z-index:-9999;
+		}
+    </style>
+	<script type="text/javascript">
+		/**
+		 * 初始化spinner
+		 * @param {HTMLElement|String} spinner spinner id的名称
+		 * @return {void} 
+		 */
+		var initSpinner = function(spinner) {
+		
+			var switchSpinner = true, /*( /iphone/i.test(ua) || /Android/i.test(ua) ) */
+				g  = function(id) { return document.getElementById(id); },
+				ua = navigator.userAgent;
+			
+			return function () {
+				spinner   = spinner || g('spinner');
+				var _for  = spinner.getAttribute('for'),
+					searchBox = g(_for) || (void function() {
+					throw new Error(['spinner', 'searchbox is null "' +_for+ '"']);
+				})();
+				
+				if (true === switchSpinner && searchBox) {
+					searchBox.oninput = searchBox.onfocus = function() {
+						var disp = 'none';
+						if (searchBox.value != '') disp = 'block';
+						spinner.style.display = disp;
+					}
+					searchBox.onblur = function() {
+						spinner.style.display = 'none';
+					}
+					spinner.onmousedown = spinner.ontouchstart = function() {
+						spinner.style.display = 'none';
+						searchBox.value = '';
+						searchBox.focus();
+					}
+				}
+			}
+		}(null);
+		
+		/**
+		 * Storage singleton class
+		 * @method get
+		 * @method set(key, value}
+		 */
+		var Storage = (function (){
+			var _ = window.localStorage || (void function() {
+				throw new Error(['storage', 'localStorage is undefined']);
+			})();
+			return {
+				get: function(key) {
+					return JSON.parse( _.getItem(key) );
+				},
+				set: function(key, value) {
+					return _.setItem( key, JSON.stringify(value) );
+				}
+			}
+		})();
+		
+		/**
+		 * geolocation feature test
+		 */
+		var geolocation = function() {
+			var info = null, 
+				_timer = null;
+			function success(position) {
+				info.innerHTML = 'latitude: '+position.coords.latitude+ '<br>longitude:' +position.coords.longitude+ '';
+			};
+			function failure(msg) {
+				info.innerHTML = msg;
+			};
+			
+			return function () {
+				info = info || document.getElementById('info');
+				info.innerHTML = 'loading...';
+				clearTimeout(_timer);
+				_timer = setTimeout(function() {
+					navigator.geolocation.getCurrentPosition(success, failure);
+				}, 500);
+			};
+		}();
+		
+		onload = function() {
+			initSpinner();
+		}
+	</script>
+    </head>
+  <body>
+  	<header><h1>Mobile test case</h1><p>---for iphone and Android</p></header>
+  	
+  	<h2>spinner</h2>
+  	<p>when input value is not empty, spinner display</p>
+  	<article class="content">
+	  	<form style="position:relative">
+	  		<div class="search">
+	  			<div class="box">
+					<input id="searchbox" 
+							name="q" 
+							type="search" 
+							autocomplete="off" 
+							autocorrect="off" 
+							autocapitalize="off" 
+							autofocus="autofocus">
+					<b id="spinner" for="searchbox" class="spinner" style="display:none" tabindex="-1">x</b>
+				</div>
+			</div>
+			<input type="submit" value="submit">
+		</form>
+	</article> 
+	
+	<h2>geolocation</h2>
+	<p>geolocation map demo</p>
+	<article class="content">
+		<div id="info"></div>
+		<a href="javascript:;" onclick="geolocation()">update</a>
+	</article>
+	
+	<h2>telephone</h2>
+	<p>a presudo protocol in mobile for iphone and android</p>
+	<article class="content">
+		<a style="border:1px solid #C7D6F7;border-radius:5px;text-decoration:none;color:#C77;padding:3px;display:inline-block" href="tel:13457668628">13457668628</a>
+	</article>
+	
+	<h2>localstorage</h2>
+	<p>localstorage is persist storage in HTML5</p>
+	<article class="content">
+		<p>持久化存储，并且序列化对象存储。</p>
+		<ul>
+			<li><a href="javascript:Storage.set('user', {'username':'ranklau', 'nickname':'rank', 'rnd': Math.random()})">存储</a> Storage.set('user', {'username':'ranklau', 'nickname':'rank', 'rnd': Math.random() }) </li>
+			<li><a href="javascript:alert(Storage.get('user').rnd)">取出</a> alert(Storage.get('user').rnd)</li>
+		</ul>
+	</article>
+	
+	<h2>htmlmanifest</h2>
+	<p>manifest is cache mechanism in HTML5</p>
+	<article class="content">
+		<p> this image will be cached in next request</p>
+		<img src="http://192.168.66.102:8200/labs/card/9290771949f8bf2d42a9ad0f.jpg" width="100%">
+	</article>
+	
+	<footer>by rank</footer>
+  </body>
+</html>
