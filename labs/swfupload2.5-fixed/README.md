@@ -1,5 +1,7 @@
 # swfupload v2.5beta的改进版
 
+debug过程可以从 http://www.never-online.net/blog 里搜索关键词swfupload。
+
 ## swfupload v2.5beta已知问题
 * flash 10使用bitmapdata有像素限制，不能大于1600w像素
 * 使用alchemy技术在IE下速度很慢
