@@ -11,4 +11,4 @@ fmt.rules 里写函数就行。
 使用也很简单，可以用 CLI，也可以用作模块：
 
 * CLI。 Usage: node format.js dir/file [dest]。
-* 模块。require('format').format(src, dest)。
+* 模块。require('format').format(src[, dest])。
