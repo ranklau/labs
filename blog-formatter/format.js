@@ -61,6 +61,9 @@ fmt.rules = {
 	},
 
 	quotes: function(stream, fp) {
+		if (!/“|”/.test(stream)) {
+			return stream;
+		}
 		console.log(fp +' has been replace “”.');
 		return stream.replace(/“/g, '「').replace(/”/g, '」');
 	}
